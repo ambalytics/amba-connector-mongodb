@@ -1,2 +1,2 @@
 pymongo
-kafka
+amba-event-stream
