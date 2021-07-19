@@ -6,4 +6,4 @@ WORKDIR /src
 COPY . .
 
 RUN pip install -r src/requirements.txt
-CMD [ "python", "./src/mongodb_connector.py" ]
+CMD [ "python", "./src/twitter_supervisor.py" ]
