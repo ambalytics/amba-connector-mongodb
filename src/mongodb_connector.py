@@ -12,7 +12,7 @@ class MongoDBConnector(EventStreamConsumer):
     log = "MongoDB Connector "
     group_id = "mongo_db_connector_lpd"
 
-    mongoClient = False
+    mongo_client = False
 
     config = {
         'mongo_url': "mongodb://mongo_db:27017/",
@@ -23,12 +23,12 @@ class MongoDBConnector(EventStreamConsumer):
     def __init__(self, id):
         super().__init__(id)
         # todo client for each thread
-        self.mongoClient = pymongo.MongoClient(host=self.config['mongo_url'],
+        self.mongo_client = pymongo.MongoClient(host=self.config['mongo_url'],
                                                serverSelectionTimeoutMS=3000,  # 3 second timeout
                                                username="root",
                                                password="example"
                                                )
-        self.db = self.mongoClient[self.config['mongo_client']]
+        self.db = self.mongo_client[self.config['mongo_client']]
         self.collection = self.db[self.config['mongo_collection']]
 
     def set_state(self, state):
