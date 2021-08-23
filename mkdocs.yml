@@ -7,8 +7,8 @@ repo_url: 'https://github.com/ambalytics/amba-connector-mongodb'
 nav:
     - Home: index.md
     - Code Reference:
-      - mongodb connector: mongodb_connector
-      - mongo supervisor: mongo_supervisor
+      - mongodb connector: mongodb_connector.md
+      - mongo supervisor: mongo_supervisor.md
 
 theme:
   name: material
