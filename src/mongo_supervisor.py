@@ -7,8 +7,11 @@ from mongodb_connector import MongoDBConnector
 
 
 class Supervisor:
+    """supervisor class
+    """
 
     def __init__(self):
+        """init"""
         self.running = True
         signal.signal(signal.SIGINT, self.stop)
         signal.signal(signal.SIGTERM, self.stop)  # need
@@ -16,11 +19,13 @@ class Supervisor:
         self.tw = list()
 
     def stop(self, signum, els):
+        """stop"""
         logging.warning("Supervisor stop")
         self.stop_workers()
         self.running = False
 
     def stop_workers(self):
+        """stop worker"""
         logging.warning("Supervisor    : close threads.")
 
         for tw in self.tw:
@@ -30,6 +35,7 @@ class Supervisor:
             work.close()
 
     def main(self):
+        """setup logging """
         format = "%(asctime)s: %(message)s"
         logging.basicConfig(format=format, level=logging.INFO,
                             datefmt="%H:%M:%S")
@@ -39,7 +45,7 @@ if __name__ == "__main__":
     # logging.basicConfig(format='%(levelname)s:%(message)s', level=logging.INFO)
 
     w = MongoDBConnector(0)
-    logging.warning('start twitter worker ... connect in %s' % w.kafka_boot_time)
+    logging.warning('start mongo worker ... connect in %s' % w.kafka_boot_time)
     for i in range(w.kafka_boot_time, 1, -1):
         time.sleep(1)
         logging.debug('%ss left' % i)
@@ -53,7 +59,10 @@ if __name__ == "__main__":
     supervisor.main()
 
     total_workers = 0
-    for state in ['unlinked', 'linked', 'unknown', 'processed']:
+    states = ['unlinked', 'linked', 'unknown', 'processed', 'aggregated']
+    print(states)
+
+    for state in states:
         logging.warning("Main    : create and start thread %d with state %s" % (total_workers, state))
         t = MongoDBConnector(total_workers)
         t.set_state(state)

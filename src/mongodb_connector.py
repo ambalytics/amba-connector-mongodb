@@ -6,6 +6,7 @@ from event_stream.event_stream_consumer import EventStreamConsumer
 
 
 class MongoDBConnector(EventStreamConsumer):
+    """save events from kafka into a mongo db """
     state = ["linked"]
     relation_type = "discusses"
 
@@ -21,6 +22,11 @@ class MongoDBConnector(EventStreamConsumer):
     }
 
     def __init__(self, id):
+        """init
+
+        Arguments:
+            id: the id
+        """
         super().__init__(id)
         # todo client for each thread
         self.mongo_client = pymongo.MongoClient(host=self.config['mongo_url'],
@@ -32,10 +38,20 @@ class MongoDBConnector(EventStreamConsumer):
         self.collection = self.db[self.config['mongo_collection']]
 
     def set_state(self, state):
+        """set status
+
+        Arguments:
+            state: state to set
+        """
         self.state = [state]
         self.group_id = "mongo_db_connector_lpd-" + state
 
     def on_message(self, json_msg):
+        """save the json_msg in mongo
+
+        Arguments:
+            json_msg: the event json to save
+        """
         logging.warning(self.log + "insert %s in collection %s " % (json_msg['id'], json_msg['state']))
         # logging.warning(json_msg)
 

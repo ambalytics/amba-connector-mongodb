@@ -1,0 +1,27 @@
+site_name: Amba Connector MongoDB
+site_description: 'documentation for amba-connector-mongodb'
+site_author: 'Lukas Jesche'
+docs_dir: docs/
+repo_name: 'ambalytics/amba-connector-mongodb'
+repo_url: 'https://github.com/ambalytics/amba-connector-mongodb'
+nav:
+    - Home: index.md
+    - Code Reference:
+      - mongodb connector: mongodb_connector.py
+      - mongo supervisor: mongo_supervisor.py
+
+theme:
+  name: material
+  palette:
+    scheme: preference
+    primary: teal
+    accent: purple
+
+plugins:
+  - search
+  - mkdocstrings:
+      handlers:
+        python:
+          setup_commands:
+            - import sys
+            - sys.path.append("src")
