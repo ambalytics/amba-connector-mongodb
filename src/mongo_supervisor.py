@@ -42,18 +42,9 @@ class Supervisor:
 
 
 if __name__ == "__main__":
-    # logging.basicConfig(format='%(levelname)s:%(message)s', level=logging.INFO)
+    logging.warning('start mongo worker ... connect in %s' % '10')
 
-    w = MongoDBConnector(0)
-    logging.warning('start mongo worker ... connect in %s' % w.kafka_boot_time)
-    for i in range(w.kafka_boot_time, 1, -1):
-        time.sleep(1)
-        logging.debug('%ss left' % i)
-
-    logging.warning('start consuming')
-    # e.get_publication_info("10.1109/5.7710731")
-
-    # w.consume()
+    time.sleep(10)
 
     supervisor = Supervisor()
     supervisor.main()
