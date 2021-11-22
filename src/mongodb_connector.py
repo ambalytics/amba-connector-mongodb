@@ -28,7 +28,6 @@ class MongoDBConnector(EventStreamConsumer):
             id: the id
         """
         super().__init__(id)
-        # todo client for each thread
         self.mongo_client = pymongo.MongoClient(host=self.config['mongo_url'],
                                                serverSelectionTimeoutMS=3000,  # 3 second timeout
                                                username="root",
@@ -55,7 +54,6 @@ class MongoDBConnector(EventStreamConsumer):
         logging.warning(self.log + "insert %s in collection %s " % (json_msg['id'], json_msg['state']))
         # logging.warning(json_msg)
 
-        # todo use id from event
         json_msg['_id'] = json_msg['id']
 
         try:
